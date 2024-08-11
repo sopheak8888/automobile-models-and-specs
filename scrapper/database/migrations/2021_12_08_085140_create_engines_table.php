@@ -15,11 +15,14 @@ class CreateEnginesTable extends Migration
     {
         Schema::create('engines', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('other_id')->index('other_id')->comment('Engine id on autoevolution');
-            $table->bigInteger('automobile_id')->index('automobile_id');
-            $table->string('name')->index('name');
+            $table->bigInteger('other_id')->unique()->comment('Engine id on autoevolution');
+            $table->bigInteger('automobile_id')->unique();
+            $table->string('name')->unique();
             $table->longText('specs')->nullable();
             $table->timestamps();
+            if (!Schema::hasColumn('engines', 'other_id')) $table->index('other_id');
+            if (!Schema::hasColumn('engines', 'automobile_id')) $table->index('automobile_id');
+            if (!Schema::hasColumn('engines', 'name')) $table->index('name');
         });
     }
 

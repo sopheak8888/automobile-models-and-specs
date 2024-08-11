@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-ini_set('memory_limit', '1G');
+ini_set('memory_limit', '8G');
 error_reporting(E_ALL);
 
 use App\Models\Automobile;
@@ -69,7 +69,7 @@ class ScrapeAutomobiles extends Command
         $automobileRowsDOMs = $this->getAutomobileRowDOMs();
 
         if ($automobileRowsDOMs) {
-
+            dd($automobileRowsDOMs);
             //Count automobile rows count.
             $modelsCount = count($automobileRowsDOMs);
 
@@ -257,7 +257,7 @@ class ScrapeAutomobiles extends Command
 
         //Make another request to get all automobiles
         $pageContents = browseUrlPost('https://www.autoevolution.com/carfinder/', [
-            'n[brand]' => $this->getBrandIds(),
+            'n[brand]' => $brandIds,
             'n[submitted]' => 1
         ]);
 
